@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { useFrame } from '@react-three/fiber';
@@ -8,7 +8,11 @@ import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('/shirt_baked.glb');
+
+  // Update the path to respect the environment
+  const assetPath = process.env.NODE_ENV === 'production' ? '/T---Shirt-Website/shirt_baked.glb' : '/shirt_baked.glb';
+  
+  const { nodes, materials } = useGLTF(assetPath);
 
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
@@ -48,7 +52,7 @@ const Shirt = () => {
         )}
       </mesh>
     </group>
-  )
-}
+  );
+};
 
-export default Shirt
+export default Shirt;
